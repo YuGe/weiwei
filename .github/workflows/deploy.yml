@@ -35,7 +35,3 @@ jobs:
       id: deploy
       run: |
         npx hexo deploy
-    - name: Get the output
-      run: |
-        echo "${{ steps.deploy.outputs.notify }}"
-
