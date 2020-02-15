@@ -27,7 +27,9 @@ jobs:
         ssh-keyscan github.com >> ~/.ssh/known_hosts
     - name: Clone repo
       run: |
-        git clone git@github.com:YuGe/weiwei.git --single-branch master && cd master && git checkout master
+        git clone --branch master git@github.com:YuGe/weiwei.git master
+        cd master
+        git checkout master
     - name: Install Dependencies
       run: |
         npm install
