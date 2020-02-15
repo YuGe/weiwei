@@ -13,16 +13,10 @@ jobs:
       matrix:
         node-version: [12.x]
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        ref: master
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install Dependencies
-      run: npm install
     - name: Setup ssh
       env:
         ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
@@ -31,9 +25,18 @@ jobs:
         echo "$ACTION_DEPLOY_KEY" > ~/.ssh/id_rsa
         chmod 400 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
+    - name: Clone repo
+      run: |
+        cd ~
+        git clone git@github.com:YuGe/weiwei.git
+        cd weiwei
+        git checkout master
+    - name: Install Dependencies
+      run: |
+        npm install
+        npm audit fix
     - name: Deploy
       id: deploy
       run: |
-        git checkout master
         npx hexo generate
         npx hexo deploy
