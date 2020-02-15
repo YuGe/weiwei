@@ -29,6 +29,7 @@ jobs:
       run: |
         cd ~
         git clone git@github.com:YuGe/weiwei.git --single-branch master
+        ls
         cd weiwei
         git checkout master
     - name: Install Dependencies
