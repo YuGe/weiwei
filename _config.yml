@@ -85,4 +85,6 @@ deploy:
   type: git
   repo: git@github.com:YuGe/weiwei.git
   token: $TOKEN
+  name: Yu Ge
+  email: yuge.me@gmail.com
 
