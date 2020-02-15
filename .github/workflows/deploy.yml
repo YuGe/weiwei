@@ -23,10 +23,16 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install Dependencies
       run: npm install
+    - name: Setup ssh
+      env:
+        ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
     - name: Deploy
       id: deploy
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACTION_DEPLOY_KEY }}
       run: |
         npx hexo deploy
     - name: Get the output

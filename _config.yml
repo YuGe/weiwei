@@ -83,8 +83,7 @@ theme_config:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/YuGe/weiwei.git
-  token: $GITHUB_TOKEN
+  repo: git@github.com:YuGe/weiwei.git
   name: Yu Ge
   email: yuge.me@gmail.com
 
