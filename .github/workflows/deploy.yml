@@ -35,4 +35,5 @@ jobs:
       id: deploy
       run: |
         git checkout master
+        npx hexo generate
         npx hexo deploy
