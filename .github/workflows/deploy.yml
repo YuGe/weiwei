@@ -28,12 +28,12 @@ jobs:
     - name: Clone repo
       run: |
         git clone --branch master git@github.com:YuGe/weiwei.git master
-        cd master
-        git checkout master
     - name: Install Dependencies
       run: |
+        ls
+        cd master
+        git checkout master
         npm install
         npm audit fix
-    - name: Deploy
-      id: deploy
-      run: npx hexo generate && npx hexo deploy
+        npx hexo generate
+        npx hexo deploy
