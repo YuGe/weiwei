@@ -11,32 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: 12.x
+        node-version: [12.x]
     steps:
     - name: Checkout
       uses: actions/checkout@v2
       with:
         ref: master
-        submodules: true
-    - name: Cache node modules
-      uses: actions/cache@v1
-      id: cache
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
       with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+        node-version: ${{ matrix.node-version }}
     - name: Install Dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
       run: npm install
-    # Deploy hexo blog website.
     - name: Deploy
       id: deploy
       env:
-        TOEKN: ${{ github.token }}
+        TOEKN: ${{ secrets.ACTION_DEPLOY_KEY }}
       run: |
         npx hexo deploy
-    # Use the output from the `deploy` step(use for test action)
     - name: Get the output
       run: |
         echo "${{ steps.deploy.outputs.notify }}"
