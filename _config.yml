@@ -84,3 +84,5 @@ theme_config:
 deploy:
   type: git
   repo: git@github.com:YuGe/weiwei.git
+  token: $TOKEN
+
